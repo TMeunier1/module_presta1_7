@@ -36,17 +36,18 @@ class Blog extends Module
             ');
         }
 
-    public function install()
+    public function install($parent_tab)
     {
         if (Shop::isFeatureActive()) {
             Shop::setContext(Shop::CONTEXT_ALL);
         }
-        $parent_tab = new Tab();
-        $parent_tab->name[$this->context->language->id] = $this->l('Blog');
-        $parent_tab->class_name = 'AdminBlog';
-        $parent_tab->id_parent = 0; // Home tab
-        $parent_tab->module = $this->name;
-        $parent_tab->add();
+        $tab = new Tab();
+        $tab->id_parent = (int) Tab::getIdFromClassName('AdminPriceRule');
+        $tab->name[$this->context->language->id] = $this->l('Blog');
+        $tab->class_name = $this->name;
+        $tab->module = $this->name;
+        $tab->active = 1;
+        $tab->add();
 
         if (!parent::install()
         || !$this->registerHook('leftColumn')
@@ -57,24 +58,6 @@ class Blog extends Module
             return false;
         }
         return true;
-    }
-
-    public function hookDisplayLeftColumn($params)
-    {
-        // $sql = new DbQuery();
-        // $sql->select('*');
-        // $sql->from('post');
-        // $sql->build();
-        // $sql->__toString();
-        // $this->context->smarty->assign(
-        //     array(
-        //     'title' => $sql['title'],
-        //     'date'  => $sql['date_add'],
-        //     'desc'  => $sql['body']
-        //     )
-        // );
-        // return Db::getInstance()->executeS($sql);
-        // return $this->display(_PS_MODULE_DIR_."blog/blog.php", 'blog.tpl');
     }
 
     public function hookDisplayHeader()

@@ -6,8 +6,8 @@ class Blog extends Module
     {
         $this->name = 'blog';
         $this->tab = 'Happy_Blog';
-        $this->version = '1.0.0';
-        $this->author = 'Tibau Meunier';
+        $this->version = '2.0.0';
+        $this->author = 'Tibbau Meunier';
         $this->need_instance = 0;
         $this->ps_versions_compliancy = array('min' => '1.6', 'max' => _PS_VERSION_);
         $this->bootstrap = true;
